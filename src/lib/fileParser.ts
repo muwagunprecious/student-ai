@@ -6,9 +6,8 @@ import mammoth from "mammoth";
 export async function extractTextFromPDF(file: File): Promise<string> {
     const { getDocument, GlobalWorkerOptions } = await import("pdfjs-dist");
 
-    // Configure worker
-    const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs");
-    GlobalWorkerOptions.workerSrc = pdfjsWorker.default;
+    // Configure worker via CDN (matching version 5.4.449 in package.json)
+    GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.mjs`;
 
     const arrayBuffer = await file.arrayBuffer();
     const loadingTask = getDocument(arrayBuffer);
