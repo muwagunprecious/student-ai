@@ -1,5 +1,7 @@
 import Groq from "groq-sdk";
 
+// Secure environment variable access for Groq API
+
 const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
 if (!apiKey) {
