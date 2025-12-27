@@ -6,6 +6,7 @@ import StudyDashboard from "@/components/StudyDashboard/StudyDashboard";
 import { useStudy } from "@/context/StudyContext";
 import { extractTextFromPDF } from "@/lib/pdfParser";
 import { generateStudyContent } from "@/lib/aiService";
+import { generateStudyContentAction } from "@/app/actions/aiActions";
 import CourseStepper from "@/components/CourseStepper/CourseStepper";
 
 export default function Home() {
@@ -24,14 +25,18 @@ export default function Home() {
         return;
       }
 
-      console.log("Sending text to AI...");
+      console.log("Sending text to AI via Server Action...");
       try {
-        const data = await generateStudyContent(text);
-        setStudyData(data);
-        setCurrentStep('dashboard');
+        const result = await generateStudyContentAction(text);
+        if (result.success && result.data) {
+          setStudyData(result.data);
+          setCurrentStep('dashboard');
+        } else {
+          throw new Error(result.error);
+        }
       } catch (aiError: any) {
         console.error("AI step failed:", aiError);
-        alert(`AI Generation failed: ${aiError.message || "Unknown error"}. This is often due to a missing or expired API key on Vercel.`);
+        alert(`AI Generation failed: ${aiError.message || "Unknown error"}. This may be because the GROQ_API_KEY is not set correctly in your Vercel Environment Variables.`);
       }
     } catch (error: any) {
       console.error("General upload error:", error);

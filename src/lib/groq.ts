@@ -2,19 +2,21 @@ import Groq from "groq-sdk";
 
 // Secure environment variable access for Groq API
 
-const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+// Secure environment variable access for Groq API
+const apiKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
 if (!apiKey) {
-  console.error("❌ CRITICAL: NEXT_PUBLIC_GROQ_API_KEY is missing! Vercel deployment will fail to generate content.");
-  if (typeof window !== 'undefined') {
-    console.error("Please add NEXT_PUBLIC_GROQ_API_KEY to your Vercel Environment Variables.");
+  if (typeof window === 'undefined') {
+    console.error("❌ CRITICAL: GROQ_API_KEY is missing on server!");
+  } else {
+    // Client-side warning (only if we still call it from client)
+    console.warn("⚠️ Client-side API key missing. Ensure NEXT_PUBLIC_GROQ_API_KEY is set or use Server Actions.");
   }
-} else {
-  console.log(`✅ API Key detected (Length: ${apiKey.length})`);
 }
 
 export const groq = new Groq({
-  apiKey: apiKey?.trim() || "MISSING_KEY",
+  apiKey: apiKey?.trim() || "",
+  // We will transition to server actions, but keeping browser support for now
   dangerouslyAllowBrowser: true,
 });
 

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './ChatAssist.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { groq, models } from '@/lib/groq';
+import { chatCompletionAction } from '@/app/actions/aiActions';
 
 const ChatAssist = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,25 +29,16 @@ const ChatAssist = () => {
         setIsLoading(true);
 
         try {
-            const completion = await groq.chat.completions.create({
-                messages: [
-                    {
-                        role: "system",
-                        content: "You are StudyAI, an expert academic assistant for African university students. You were founded by Ademuwagun Mayokun, a Computer Engineering student at Olabisi Onabanjo University (OOU). Answer questions based on general knowledge and academic context. Keep it concise."
-                    },
-                    ...messages,
-                    userMsg
-                ],
-                model: models.llama3,
-            });
+            const result = await chatCompletionAction([...messages, userMsg]);
 
-            const assistantMsg = {
-                role: 'assistant' as const,
-                content: completion.choices[0]?.message?.content || "Sorry, I couldn't process that."
-            };
-            setMessages(prev => [...prev, assistantMsg]);
-        } catch (error) {
+            if (result.success && result.content) {
+                setMessages(prev => [...prev, { role: 'assistant', content: result.content! }]);
+            } else {
+                throw new Error(result.error);
+            }
+        } catch (error: any) {
             console.error("Chat Error:", error);
+            setMessages(prev => [...prev, { role: 'assistant', content: "Sorry, I had trouble connecting. Please check the API key on Vercel." }]);
         } finally {
             setIsLoading(false);
         }

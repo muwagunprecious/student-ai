@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { StudyProvider } from "@/context/StudyContext";
 import ChatAssist from "@/components/ChatAssist/ChatAssist";
+import EnvironmentDebugger from "@/components/EnvironmentDebugger";
 
 export const metadata: Metadata = {
   title: "StudyAI | Ace Your Exams with AI 📚",

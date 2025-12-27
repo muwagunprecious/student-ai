@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './CourseStepper.module.css';
 import { useStudy } from '@/context/StudyContext';
-import { generateStudyContentFromTopic } from '@/lib/aiService';
+import { generateStudyContentFromTopicAction } from '@/app/actions/aiActions';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const FORMS = [
@@ -29,13 +29,17 @@ const CourseStepper = () => {
 
         setIsLoading(true);
         try {
-            console.log(`Requesting AI content for: ${formData.topic} in ${formData.course}`);
-            const data = await generateStudyContentFromTopic(formData.course, formData.topic);
-            setStudyData(data);
-            setCurrentStep('dashboard');
+            console.log(`Requesting AI content for: ${formData.topic} via Server Action`);
+            const result = await generateStudyContentFromTopicAction(formData.course, formData.topic);
+            if (result.success && result.data) {
+                setStudyData(result.data);
+                setCurrentStep('dashboard');
+            } else {
+                throw new Error(result.error);
+            }
         } catch (error: any) {
             console.error("Stepper generation failed", error);
-            alert(`AI Generation failed: ${error.message || "Unknown error"}. Check if your NEXT_PUBLIC_GROQ_API_KEY is correctly set on Vercel.`);
+            alert(`AI Generation failed: ${error.message || "Unknown error"}. Check if your GROQ_API_KEY is correctly set on Vercel.`);
         } finally {
             setIsLoading(false);
         }
