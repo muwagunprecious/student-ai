@@ -3,11 +3,6 @@
 import { generateStudyContent, generateStudyContentFromTopic } from "@/lib/aiService";
 
 export async function generateStudyContentAction(text: string) {
-    const allKeys = Object.keys(process.env);
-    const groqKeys = allKeys.filter(k => k.toUpperCase().includes("GROQ") || k.toUpperCase().includes("API"));
-    const key = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
-    const sig = key ? `${key.substring(0, 6)}...${key.substring(key.length - 4)} (Len: ${key.length})` : `MISSING (Detected similar keys: ${groqKeys.join(", ") || "NONE"})`;
-
     try {
         const data = await generateStudyContent(text);
         return { success: true, data };
@@ -15,17 +10,12 @@ export async function generateStudyContentAction(text: string) {
         console.error("Server Action Error (PDF):", error);
         return {
             success: false,
-            error: `${error.message}. Debug Info: ${sig}`
+            error: "Failed to process PDF content. Please check your AI configuration."
         };
     }
 }
 
 export async function generateStudyContentFromTopicAction(course: string, topic: string) {
-    const allKeys = Object.keys(process.env);
-    const groqKeys = allKeys.filter(k => k.toUpperCase().includes("GROQ") || k.toUpperCase().includes("API"));
-    const key = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
-    const sig = key ? `${key.substring(0, 6)}...${key.substring(key.length - 4)} (Len: ${key.length})` : `MISSING (Detected similar keys: ${groqKeys.join(", ") || "NONE"})`;
-
     try {
         const data = await generateStudyContentFromTopic(course, topic);
         return { success: true, data };
@@ -33,18 +23,13 @@ export async function generateStudyContentFromTopicAction(course: string, topic:
         console.error("Server Action Error (Topic):", error);
         return {
             success: false,
-            error: `${error.message}. Debug Info: ${sig}`
+            error: "Failed to generate study materials for this topic."
         };
     }
 }
 
 export async function chatCompletionAction(messages: any[]) {
     const { groq, models } = await import("@/lib/groq");
-    const allKeys = Object.keys(process.env);
-    const groqKeys = allKeys.filter(k => k.toUpperCase().includes("GROQ") || k.toUpperCase().includes("API"));
-    const key = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY;
-    const sig = key ? `${key.substring(0, 6)}...${key.substring(key.length - 4)} (Len: ${key.length})` : `MISSING (Detected similar keys: ${groqKeys.join(", ") || "NONE"})`;
-
     try {
         const completion = await groq.chat.completions.create({
             messages: [
@@ -62,7 +47,7 @@ export async function chatCompletionAction(messages: any[]) {
         console.error("Server Action Error (Chat):", error);
         return {
             success: false,
-            error: `${error.message}. Debug Info: ${sig}`
+            error: "Chat assistance is currently unavailable."
         };
     }
 }
