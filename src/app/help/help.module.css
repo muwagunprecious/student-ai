@@ -1,0 +1,143 @@
+.helpPage {
+    padding: 60px 0;
+    min-height: calc(100vh - var(--nav-height));
+    background: var(--background);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    color: var(--text-main);
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 80px;
+}
+
+.section {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    color: var(--text-main);
+}
+
+.list {
+    padding-left: 20px;
+}
+
+.list li {
+    margin-bottom: 16px;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.list li strong {
+    color: var(--primary);
+}
+
+.contactButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.contactBtn {
+    background: var(--background);
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 700;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.contactBtn:hover {
+    border-color: var(--primary);
+    background: white;
+    transform: translateY(-2px);
+}
+
+.faqSection h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+}
+
+.faqList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.faqItem {
+    background: white;
+    padding: 30px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.faqItem h3 {
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: 1.2rem;
+}
+
+.faqItem p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.footer {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.backBtn {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--text-main);
+    color: white;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+    background: black;
+    transform: translateX(-5px);
+}
+
+@media (max-width: 768px) {
+
+    .grid,
+    .faqList {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 2.2rem;
+    }
+}

@@ -1,0 +1,133 @@
+.chatWrapper {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.toggleBtn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggleBtn:hover {
+    transform: scale(1.05);
+    background: var(--primary-hover);
+}
+
+.chatWindow {
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.header {
+    background: var(--primary);
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header button {
+    background: transparent;
+    color: white;
+    font-size: 1.5rem;
+    padding: 0 8px;
+}
+
+.messageList {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--background);
+}
+
+.message {
+    display: flex;
+    width: 100%;
+}
+
+.user {
+    justify-content: flex-end;
+}
+
+.bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.user .bubble {
+    background: var(--primary);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.assistant .bubble {
+    background: white;
+    color: var(--text-main);
+    border-bottom-left-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+.loading {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.footer {
+    padding: 12px;
+    background: white;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+}
+
+.footer input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    outline: none;
+}
+
+.footer button {
+    background: var(--primary);
+    color: white;
+    padding: 0 16px;
+    border-radius: var(--radius);
+    font-weight: 700;
+}
+
+@media (max-width: 480px) {
+    .chatWindow {
+        width: calc(100vw - 48px);
+        height: 70vh;
+    }
+}

@@ -1,0 +1,118 @@
+.stepperWrapper {
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--background);
+}
+
+.stepperCard {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 60px 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+}
+
+.progressHeader {
+    margin-bottom: 40px;
+}
+
+.steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.stepIndicator {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.stepIndicator.active {
+    background: var(--primary);
+}
+
+.stepCount {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.formContent h1 {
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    color: var(--text-main);
+}
+
+.formContent input {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.25rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    outline: none;
+    transition: all 0.2s ease;
+    background: var(--background);
+}
+
+.formContent input:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.05);
+}
+
+.footer {
+    margin-top: 48px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.footer button {
+    padding: 14px 24px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.backBtn {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.backBtn:hover {
+    color: var(--text-main);
+}
+
+.nextBtn {
+    background: var(--primary);
+    color: white;
+    flex: 1;
+}
+
+.nextBtn:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.nextBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+    .stepperCard {
+        padding: 40px 24px;
+    }
+
+    .formContent h1 {
+        font-size: 1.8rem;
+    }
+}
