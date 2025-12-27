@@ -1,0 +1,106 @@
+.container {
+    padding: 20px;
+}
+
+.progress {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.questionCard {
+    background: var(--background);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin-bottom: 32px;
+}
+
+.sentence {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 32px;
+}
+
+.inputArea {
+    display: flex;
+    gap: 12px;
+}
+
+.inputArea input {
+    flex: 1;
+    padding: 16px;
+    font-size: 1.1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    outline: none;
+    transition: all 0.2s;
+}
+
+.inputArea input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.05);
+}
+
+.inputArea input.success {
+    border-color: #10B981;
+    background: #ECFDF5;
+}
+
+.inputArea input.error {
+    border-color: #EF4444;
+    background: #FEF2F2;
+}
+
+.checkBtn {
+    padding: 0 32px;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+}
+
+.checkBtn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.feedback {
+    margin-top: 16px;
+    color: #DC2626;
+    font-weight: 500;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.controls button {
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.controls button:first-child {
+    background: transparent;
+    border: 1px solid var(--border);
+}
+
+.controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.controls button:last-child {
+    background: var(--border);
+}
+
+.controls button:hover:not(:disabled) {
+    background: var(--primary-light);
+    color: var(--primary);
+}

@@ -107,6 +107,51 @@
     cursor: not-allowed;
 }
 
+.finalOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.finalOptions textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    font-size: 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    outline: none;
+    transition: all 0.2s ease;
+    background: var(--background);
+    resize: vertical;
+    font-family: inherit;
+}
+
+.finalOptions textarea:focus {
+    border-color: var(--primary);
+    background: white;
+}
+
+.lengthSelect {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.lengthSelect label {
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.lengthSelect select {
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: white;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
 @media (max-width: 480px) {
     .stepperCard {
         padding: 40px 24px;
@@ -114,5 +159,11 @@
 
     .formContent h1 {
         font-size: 1.8rem;
+    }
+
+    .lengthSelect {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 }

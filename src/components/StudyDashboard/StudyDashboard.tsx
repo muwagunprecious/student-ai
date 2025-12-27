@@ -6,6 +6,7 @@ import { useStudy } from '@/context/StudyContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import Flashcard from '../Flashcard/Flashcard';
 import Quiz from '../Quiz/Quiz';
+import FillInTheGaps from '../FillInTheGaps/FillInTheGaps';
 
 const StudyDashboard = () => {
     const { studyData } = useStudy();
@@ -16,10 +17,11 @@ const StudyDashboard = () => {
 
     const sections = [
         { id: 'summary', name: 'Overview', icon: '📘' },
-        { id: 'keypoints', name: 'Key Exam Points', icon: '📍' },
+        { id: 'keypoints', name: 'Key Points', icon: '📍' },
         { id: 'flashcards', name: 'Flashcards', icon: '🧠' },
+        { id: 'fillgaps', name: 'Fill In Gaps', icon: '📝' },
         { id: 'quiz', name: 'Quiz & Tests', icon: '❓' },
-        { id: 'exam', name: 'Likely Questions', icon: '🔥' },
+        { id: 'exam', name: 'Exam Prep', icon: '🔥' },
         { id: 'funbox', name: 'Fun Facts', icon: '🎉' },
     ];
 
@@ -94,6 +96,13 @@ const StudyDashboard = () => {
                                         className={styles.primaryBtn}
                                     >Next Card</button>
                                 </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'fillgaps' && (
+                            <div className={styles.card}>
+                                <h1>📝 Fill In The Gaps</h1>
+                                <FillInTheGaps questions={studyData.fillInTheGaps || []} />
                             </div>
                         )}
 

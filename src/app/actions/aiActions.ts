@@ -1,23 +1,23 @@
 "use server";
 
-import { generateStudyContent, generateStudyContentFromTopic } from "@/lib/aiService";
+import { generateStudyContent, generateStudyContentFromTopic, GenerationOptions } from "@/lib/aiService";
 
-export async function generateStudyContentAction(text: string) {
+export async function generateStudyContentAction(text: string, options?: GenerationOptions) {
     try {
-        const data = await generateStudyContent(text);
+        const data = await generateStudyContent(text, options);
         return { success: true, data };
     } catch (error: any) {
         console.error("Server Action Error (PDF):", error);
         return {
             success: false,
-            error: "Failed to process PDF content. Please check your AI configuration."
+            error: "Failed to process content. Please check your AI configuration."
         };
     }
 }
 
-export async function generateStudyContentFromTopicAction(course: string, topic: string) {
+export async function generateStudyContentFromTopicAction(course: string, topic: string, options?: GenerationOptions) {
     try {
-        const data = await generateStudyContentFromTopic(course, topic);
+        const data = await generateStudyContentFromTopic(course, topic, options);
         return { success: true, data };
     } catch (error: any) {
         console.error("Server Action Error (Topic):", error);

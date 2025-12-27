@@ -4,30 +4,30 @@ import Hero from "@/components/Hero/Hero";
 import UploadCard from "@/components/UploadCard/UploadCard";
 import StudyDashboard from "@/components/StudyDashboard/StudyDashboard";
 import { useStudy } from "@/context/StudyContext";
-import { extractTextFromPDF } from "@/lib/pdfParser";
-import { generateStudyContent } from "@/lib/aiService";
+import { extractTextFromFile } from "@/lib/fileParser";
+import { generateStudyContent, GenerationOptions } from "@/lib/aiService";
 import { generateStudyContentAction } from "@/app/actions/aiActions";
 import CourseStepper from "@/components/CourseStepper/CourseStepper";
 
 export default function Home() {
   const { currentStep, setCurrentStep, setStudyData, isLoading, setIsLoading } = useStudy();
 
-  const handleFileUpload = async (file: File) => {
+  const handleFileUpload = async (file: File, options: GenerationOptions) => {
     setIsLoading(true);
     try {
-      console.log("Starting PDF extraction...");
+      console.log(`Starting extraction for ${file.name}...`);
       let text = "";
       try {
-        text = await extractTextFromPDF(file);
+        text = await extractTextFromFile(file);
       } catch (extractError: any) {
-        console.error("Extraction step failed:", extractError);
-        alert(`Failed to extract text from PDF: ${extractError.message || "Unknown error"}. Please ensure it's not a scanned image.`);
+        console.error("Extraction failed:", extractError);
+        alert(`Failed to extract text: ${extractError.message || "Unknown error"}`);
         return;
       }
 
       console.log("Sending text to AI via Server Action...");
       try {
-        const result = await generateStudyContentAction(text);
+        const result = await generateStudyContentAction(text, options);
         if (result.success && result.data) {
           setStudyData(result.data);
           setCurrentStep('dashboard');
@@ -36,7 +36,7 @@ export default function Home() {
         }
       } catch (aiError: any) {
         console.error("AI step failed:", aiError);
-        alert(`AI Generation failed: ${aiError.message || "Unknown error"}. This may be because the GROQ_API_KEY is not set correctly in your Vercel Environment Variables.`);
+        alert(`AI Generation failed: ${aiError.message || "Unknown error"}.`);
       }
     } catch (error: any) {
       console.error("General upload error:", error);
