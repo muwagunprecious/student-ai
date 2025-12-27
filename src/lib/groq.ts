@@ -3,13 +3,16 @@ import Groq from "groq-sdk";
 const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
 if (!apiKey) {
-  console.warn("GROQ_API_KEY is missing in env variables");
+  console.error("❌ CRITICAL: NEXT_PUBLIC_GROQ_API_KEY is missing! Vercel deployment will fail to generate content.");
+  if (typeof window !== 'undefined') {
+    console.error("Please add NEXT_PUBLIC_GROQ_API_KEY to your Vercel Environment Variables.");
+  }
 } else {
-  console.log(`API Key detected. Length: ${apiKey.length}, Starts with: ${apiKey.substring(0, 4)}, Ends with: ${apiKey.substring(apiKey.length - 4)}`);
+  console.log(`✅ API Key detected (Length: ${apiKey.length})`);
 }
 
 export const groq = new Groq({
-  apiKey: apiKey?.trim() || "",
+  apiKey: apiKey?.trim() || "MISSING_KEY",
   dangerouslyAllowBrowser: true,
 });
 

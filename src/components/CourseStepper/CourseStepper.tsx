@@ -29,12 +29,13 @@ const CourseStepper = () => {
 
         setIsLoading(true);
         try {
+            console.log(`Requesting AI content for: ${formData.topic} in ${formData.course}`);
             const data = await generateStudyContentFromTopic(formData.course, formData.topic);
             setStudyData(data);
             setCurrentStep('dashboard');
-        } catch (error) {
-            console.error("Stepper failed", error);
-            alert("Failed to generate content. Please try again.");
+        } catch (error: any) {
+            console.error("Stepper generation failed", error);
+            alert(`AI Generation failed: ${error.message || "Unknown error"}. Check if your NEXT_PUBLIC_GROQ_API_KEY is correctly set on Vercel.`);
         } finally {
             setIsLoading(false);
         }

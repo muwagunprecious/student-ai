@@ -14,13 +14,28 @@ export default function Home() {
   const handleFileUpload = async (file: File) => {
     setIsLoading(true);
     try {
-      const text = await extractTextFromPDF(file);
-      const data = await generateStudyContent(text);
-      setStudyData(data);
-      setCurrentStep('dashboard');
-    } catch (error) {
-      console.error("Upload failed", error);
-      alert("Failed to process PDF. Please try again.");
+      console.log("Starting PDF extraction...");
+      let text = "";
+      try {
+        text = await extractTextFromPDF(file);
+      } catch (extractError: any) {
+        console.error("Extraction step failed:", extractError);
+        alert(`Failed to extract text from PDF: ${extractError.message || "Unknown error"}. Please ensure it's not a scanned image.`);
+        return;
+      }
+
+      console.log("Sending text to AI...");
+      try {
+        const data = await generateStudyContent(text);
+        setStudyData(data);
+        setCurrentStep('dashboard');
+      } catch (aiError: any) {
+        console.error("AI step failed:", aiError);
+        alert(`AI Generation failed: ${aiError.message || "Unknown error"}. This is often due to a missing or expired API key on Vercel.`);
+      }
+    } catch (error: any) {
+      console.error("General upload error:", error);
+      alert("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
