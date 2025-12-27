@@ -9,6 +9,9 @@ StudyAI is an AI-powered academic assistant designed to help African university 
 - **AI Chat Assist**: Ask questions and get high-quality academic explanations.
 - **Interactive Tools**: 3D flip flashcards and auto-graded quizzes with confetti celebrations.
 
+---
+**Deployment Note**: Ensure `NEXT_PUBLIC_GROQ_API_KEY` is set in Vercel to enable AI features.
+
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
