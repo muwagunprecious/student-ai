@@ -23,6 +23,8 @@ Your goal is to help students pass exams by providing crisp, exam-oriented conte
 Always follow user formatting instructions (like chapter-by-chapter, or specific question counts for objective/theory) if provided.
 When asked for "objective questions", provide Multiple Choice Questions (MCQs).
 Return all data in strictly valid JSON format according to the requested structure.
+CRITICAL: Do NOT repeat questions between sections (e.g., do not use the same question in Flashcards and Quiz).
+CRITICAL: Ensure all Quiz options are distinct and plausible.
 `;
 
 export const generateStudyContent = async (extractedText: string, options?: GenerationOptions): Promise<StudyData> => {
@@ -30,14 +32,17 @@ export const generateStudyContent = async (extractedText: string, options?: Gene
         options?.summaryLength === 'short' ? "concise (1-2 paragraphs)" : "comprehensive (3-4 paragraphs)";
 
     const chapterLogic = options?.chapterByChapter ? "Format the summary chapter-by-chapter if the material contains different sections." : "";
-    const customText = options?.customInstructions ? `Special User Instructions: "${options.customInstructions}" - YOU MUST PRIORITIZE THESE INSTRUCTIONS.` : "";
+
+    // Enhanced Custom Instruction Injection
+    const customText = options?.customInstructions ?
+        `\n*** CRITICAL USER INSTRUCTION: "${options.customInstructions}" ***\n*** YOU MUST PRIORITIZE THE ABOVE INSTRUCTION OVER DEFAULT BEHAVIOR. ***\n` : "";
 
     const prompt = `
   Analyze the following study material and generate:
   1. A summary that is ${summaryStyle}. ${chapterLogic}
   2. 5-7 Very important key exam points.
   3. 5-10 interactive Flashcards (Question & Answer).
-  4. 5 Multiple Choice Quiz questions with options (A, B, C, D), correct answer letter, short explanation, and difficulty (Easy, Medium, Hard).
+  4. 5 Multiple Choice Quiz questions with options (A, B, C, D), correct answer letter, short explanation, and difficulty (Easy, Medium, Hard). ensure these are NOT repeated from flashcards.
   5. 5 "Fill in the Gap" questions. Provide a sentence with a clear blank and the correct missing word/phrase.
   6. 3-5 Likely exam-style theory questions.
   7. 2-3 Fun facts or memory hooks.
@@ -82,14 +87,15 @@ export const generateStudyContent = async (extractedText: string, options?: Gene
 };
 
 export const generateStudyContentFromTopic = async (course: string, topic: string, options?: GenerationOptions): Promise<StudyData> => {
-    const customText = options?.customInstructions ? `Special User Instructions: "${options.customInstructions}"` : "";
+    const customText = options?.customInstructions ?
+        `\n*** CRITICAL USER INSTRUCTION: "${options.customInstructions}" ***\n*** YOU MUST PRIORITIZE THE ABOVE INSTRUCTION OVER DEFAULT BEHAVIOR. ***\n` : "";
 
     const prompt = `
   Analyze the following study topic: "${topic}" in the context of "${course}" and generate:
   1. A comprehensive summary.
   2. 5-7 Very important key exam points.
   3. 5-10 interactive Flashcards (Question & Answer).
-  4. 5 Multiple Choice Quiz questions.
+  4. 5 Multiple Choice Quiz questions. Ensure these are UNIQUE and not repeated.
   5. 5 "Fill in the Gap" questions.
   6. 3-5 Likely exam-style theory questions.
   7. 2-3 Fun facts or memory hooks.
