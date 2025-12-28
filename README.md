@@ -19,12 +19,6 @@ StudyAI is an AI-powered academic assistant designed to help African university 
 - **Styling**: Vanilla CSS (Modern, Clean, "Notion x Duolingo" aesthetic)
 - **Parsing**: PDF.js for client-side text extraction.
 
-## 📦 Deployment on Vercel
-
-1. **Push to GitHub**: Connect your repository to Vercel.
-2. **Environment Variables**: Add your Groq API key in the Vercel dashboard:
-   - `NEXT_PUBLIC_GROQ_API_KEY`: Your key from console.groq.com.
-3. **Deploy**: Vercel will automatically handle the build and deployment.
 
 ---
 Built with ❤️ by Ademuwagun Mayokun.
