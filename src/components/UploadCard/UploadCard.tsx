@@ -38,6 +38,7 @@ const UploadCard: React.FC<UploadCardProps> = ({ onUpload, isLoading }) => {
         accept: {
             'application/pdf': ['.pdf'],
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx'],
             'text/plain': ['.txt']
         },
         multiple: false,
@@ -119,7 +120,7 @@ const UploadCard: React.FC<UploadCardProps> = ({ onUpload, isLoading }) => {
                                 <h2>Drop your notes here</h2>
                                 <p>or click to browse</p>
                                 <div className={styles.meta}>
-                                    <span>Supported: PDF, DOCX, TXT</span>
+                                    <span>Supported: PDF, DOCX, PPTX, TXT</span>
                                     <span>Max: 20MB</span>
                                 </div>
                             </motion.div>

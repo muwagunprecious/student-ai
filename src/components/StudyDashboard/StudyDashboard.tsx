@@ -8,6 +8,8 @@ import Flashcard from '../Flashcard/Flashcard';
 import Quiz from '../Quiz/Quiz';
 import FillInTheGaps from '../FillInTheGaps/FillInTheGaps';
 
+import ChatInterface from '../ChatInterface/ChatInterface'; // Add Import
+
 const StudyDashboard = () => {
     const { studyData } = useStudy();
     const [activeSection, setActiveSection] = useState('summary');
@@ -22,6 +24,7 @@ const StudyDashboard = () => {
         { id: 'fillgaps', name: 'Fill In Gaps', icon: '📝' },
         { id: 'quiz', name: 'Quiz & Tests', icon: '❓' },
         { id: 'exam', name: 'Exam Prep', icon: '🔥' },
+        { id: 'chat', name: 'AI Chat', icon: '💬' }, // Add Chat option
         { id: 'funbox', name: 'Fun Facts', icon: '🎉' },
     ];
 
@@ -124,6 +127,13 @@ const StudyDashboard = () => {
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                        )}
+
+                        {activeSection === 'chat' && (
+                            <div className={styles.card}>
+                                <h1>💬 AI Study Assistant</h1>
+                                <ChatInterface />
                             </div>
                         )}
 
