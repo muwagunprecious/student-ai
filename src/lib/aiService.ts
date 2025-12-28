@@ -12,7 +12,7 @@ export interface StudyData {
 
 export interface GenerationOptions {
     customInstructions?: string;
-    summaryLength?: 'short' | 'medium' | 'long';
+    summaryLength?: 'short' | 'medium' | 'long' | 'detailed';
     chapterByChapter?: boolean;
 }
 
@@ -25,11 +25,13 @@ When asked for "objective questions", provide Multiple Choice Questions (MCQs).
 Return all data in strictly valid JSON format according to the requested structure.
 CRITICAL: Do NOT repeat questions between sections (e.g., do not use the same question in Flashcards and Quiz).
 CRITICAL: Ensure all Quiz options are distinct and plausible.
+CRITICAL: For every Quiz question, provide a detailed "explanation" that includes step-by-step solving if the question involves calculations, formulas, or complex logic.
 `;
 
 export const generateStudyContent = async (extractedText: string, options?: GenerationOptions): Promise<StudyData> => {
-    const summaryStyle = options?.summaryLength === 'long' ? "very detailed and expanded (6-8 paragraphs)" :
-        options?.summaryLength === 'short' ? "concise (1-2 paragraphs)" : "comprehensive (3-4 paragraphs)";
+    const summaryStyle = options?.summaryLength === 'detailed' ? "extremely detailed, exhaustive, and expanded (10-15 paragraphs or more)" :
+        options?.summaryLength === 'long' ? "very detailed and expanded (6-8 paragraphs)" :
+            options?.summaryLength === 'short' ? "concise (1-2 paragraphs)" : "comprehensive (3-4 paragraphs)";
 
     const chapterLogic = options?.chapterByChapter ? "Format the summary chapter-by-chapter if the material contains different sections." : "";
 
@@ -42,7 +44,7 @@ export const generateStudyContent = async (extractedText: string, options?: Gene
   1. A summary that is ${summaryStyle}. ${chapterLogic}
   2. 5-7 Very important key exam points.
   3. 5-10 interactive Flashcards (Question & Answer).
-  4. 5 Multiple Choice Quiz questions with options (A, B, C, D), correct answer letter, short explanation, and difficulty (Easy, Medium, Hard). ensure these are NOT repeated from flashcards.
+  4. 30 Multiple Choice Quiz questions with options (A, B, C, D), correct answer letter, detailed explanation (including solving steps if applicable), and difficulty (Easy, Medium, Hard). ensure these are NOT repeated from flashcards.
   5. 5 "Fill in the Gap" questions. Provide a sentence with a clear blank and the correct missing word/phrase.
   6. 3-5 Likely exam-style theory questions.
   7. 2-3 Fun facts or memory hooks.
@@ -95,7 +97,7 @@ export const generateStudyContentFromTopic = async (course: string, topic: strin
   1. A comprehensive summary.
   2. 5-7 Very important key exam points.
   3. 5-10 interactive Flashcards (Question & Answer).
-  4. 5 Multiple Choice Quiz questions. Ensure these are UNIQUE and not repeated.
+  4. 30 Multiple Choice Quiz questions. Ensure these are UNIQUE, not repeated, and include detailed explanations/solving steps.
   5. 5 "Fill in the Gap" questions.
   6. 3-5 Likely exam-style theory questions.
   7. 2-3 Fun facts or memory hooks.

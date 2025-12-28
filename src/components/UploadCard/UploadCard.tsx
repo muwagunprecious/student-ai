@@ -69,6 +69,7 @@ const UploadCard: React.FC<UploadCardProps> = ({ onUpload, isLoading }) => {
                             <option value="short">Quick Overview (Short)</option>
                             <option value="medium">Standard Study (Medium)</option>
                             <option value="long">In-depth Analysis (Long)</option>
+                            <option value="detailed">Detailed Master Copy (Exhaustive)</option>
                         </select>
                     </div>
 

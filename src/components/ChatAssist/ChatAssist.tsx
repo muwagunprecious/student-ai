@@ -8,7 +8,7 @@ import { chatCompletionAction } from '@/app/actions/aiActions';
 const ChatAssist = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([
-        { role: 'assistant', content: "Hi! I'm StudyAI, founded by Ademuwagun Mayokun. Need help explaining something from your notes?" }
+        { role: 'assistant', content: "Hi! I'm StudyAI, your advanced academic assistant founded by Ademuwagun Mayokun. I can solve problems, explain concepts, or even write code. How can I help you today?" }
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +71,7 @@ const ChatAssist = () => {
                         <div className={styles.footer}>
                             <input
                                 type="text"
-                                placeholder="Type 'Explain this like I'm 5'..."
+                                placeholder="Solve this formula / Explain photosynthesis / Write a study plan..."
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
