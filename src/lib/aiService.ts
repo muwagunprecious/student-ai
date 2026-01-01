@@ -46,7 +46,7 @@ export const generateStudyContent = async (extractedText: string, options?: Gene
   3. 5-10 interactive Flashcards (Question & Answer).
   4. 30 Multiple Choice Quiz questions with options (A, B, C, D), correct answer letter, detailed explanation (including solving steps if applicable), and difficulty (Easy, Medium, Hard). ensure these are NOT repeated from flashcards.
   5. 5 "Fill in the Gap" questions. Provide a sentence with a clear blank and the correct missing word/phrase.
-  6. 3-5 Likely exam-style theory questions.
+  6. 30 Likely exam-style theory questions.
   7. 2-3 Fun facts or memory hooks.
 
   ${customText}
@@ -99,7 +99,7 @@ export const generateStudyContentFromTopic = async (course: string, topic: strin
   3. 5-10 interactive Flashcards (Question & Answer).
   4. 30 Multiple Choice Quiz questions. Ensure these are UNIQUE, not repeated, and include detailed explanations/solving steps.
   5. 5 "Fill in the Gap" questions.
-  6. 3-5 Likely exam-style theory questions.
+  6. 30 Likely exam-style theory questions.
   7. 2-3 Fun facts or memory hooks.
 
   ${customText}
